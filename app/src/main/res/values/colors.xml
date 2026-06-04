@@ -2,4 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="ghibli_blue">#5B8FA8</color>
+    <color name="ghibli_green">#7BA87B</color>
+    <color name="ghibli_warm">#E8C4A0</color>
+    <color name="ghibli_dark">#2C3E50</color>
+    <color name="ghibli_accent">#E67E22</color>
+    <color name="ghibli_light">#F5F0E8</color>
+    <color name="ghibli_card">#FFFFFF</color>
+    <color name="ghibli_soft_blue">#D6EAF8</color>
+    <color name="text_primary">#2C3E50</color>
+    <color name="text_secondary">#7F8C8D</color>
+    <color name="divider">#E0E0E0</color>
 </resources>
