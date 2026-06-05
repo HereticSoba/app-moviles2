@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/perfilactivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -109,23 +109,10 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnMisFavoritos"
+        android:id="@+id/btnmenu_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mis Favoritos"
-        android:layout_marginHorizontal="60dp"
-        android:layout_marginTop="8dp"
-        android:padding="10dp"
-        app:backgroundTint="#2b6cb0"
-        app:cornerRadius="12dp"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        app:iconGravity="textStart"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnConfiguracion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Configuraciones"
+        android:text="Volver"
         android:layout_marginHorizontal="60dp"
         android:layout_marginTop="12dp"
         android:padding="10dp"

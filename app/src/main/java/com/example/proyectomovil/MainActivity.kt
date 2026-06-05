@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.proyectomovil.ui.Favoritos.FavoritosActivity
+import com.example.proyectomovil.ui.profile.ProfileActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +37,8 @@ class MainActivity : AppCompatActivity() {
                     false
                 }
                 R.id.nav_perfil -> {
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    startActivity(intent)
                     false
                 }
                 else -> false
