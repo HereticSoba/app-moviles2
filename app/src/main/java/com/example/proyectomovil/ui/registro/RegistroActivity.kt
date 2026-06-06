@@ -11,6 +11,7 @@ import com.example.proyectomovil.R
 import com.example.proyectomovil.ui.login.LoginActivity
 
 class RegistroActivity : AppCompatActivity() {
+    private lateinit var volver : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +22,11 @@ class RegistroActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+        volver = findViewById(R.id.txtVolverLogin)
+        volver.setOnClickListener {
+            val intent = Intent(this,LoginActivity::class.java)
+            startActivity(intent)
         }
     }
 }
