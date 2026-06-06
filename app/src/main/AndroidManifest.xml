@@ -30,6 +30,7 @@
 
         <activity android:name=".ui.Favoritos.FavoritosActivity"/>
         <activity android:name=".ui.profile.ProfileActivity"/>
+        <activity android:name=".ui.registro.RegistroActivity"/>
     </application>
 
 </manifest>

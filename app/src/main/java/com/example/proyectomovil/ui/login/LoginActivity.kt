@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.proyectomovil.MainActivity
 import com.example.proyectomovil.R
+import com.example.proyectomovil.ui.registro.RegistroActivity
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +32,10 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
 
             finish()
+        }
+        tvRegistro.setOnClickListener{
+            val intent = Intent(this,RegistroActivity::class.java)
+            startActivity(intent)
         }
 
     }
