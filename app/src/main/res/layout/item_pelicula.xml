@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="15dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="16dp">
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            
+            <ImageView
+                android:id="@+id/ivimagen"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_play"
+                android:scaleType="fitCenter"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="3"
+            android:layout_marginStart="16dp">
+
+            <TextView
+                android:id="@+id/tvTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Titulo"/>
+
+            <TextView
+                android:id="@+id/tvdirector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Director"/>
+            <TextView
+                android:id="@+id/tvestreno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha estreno"/>
+            <TextView
+                android:id="@+id/tvduracion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Duración"/>
+            <TextView
+                android:id="@+id/tvcalificacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Calificación"/>
+            <TextView
+                android:id="@+id/tvcategoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Categoría"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
