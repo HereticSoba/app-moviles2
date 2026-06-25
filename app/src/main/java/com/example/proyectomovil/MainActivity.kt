@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
         rvPeliculas.layoutManager = LinearLayoutManager(this)
 
         val peliculas = listOf(
-            Pelicula(1, "El Viaje de Chihiro", "https://www.imdb.com/es/title/tt0245429/", "Hayao Miyazaki", 2001, 125, 5, "Animación"),
-            Pelicula(2, "Mi Vecino Totoro", "https://www.sensacine.com/peliculas/pelicula-14790/", "Hayao Miyazaki", 1988, 86, 5, "Animación"),
+            Pelicula(1, "El Viaje de Chihiro", "https://picsum.photos/seed/hist1/200/300", "Hayao Miyazaki", 2001, 125, 5, "Animación"),
+            Pelicula(2, "Mi Vecino Totoro", "https://static.wikia.nocookie.net/studioghibli/images/a/ac/Mi-vecino-totoro_portada_ESP.jpg/revision/latest?cb=20200411042641&path-prefix=es", "Hayao Miyazaki", 1988, 86, 5, "Animación"),
             Pelicula(3, "La Princesa Mononoke", "", "Hayao Miyazaki", 1997, 134, 5, "Aventura"),
             Pelicula(4, "El Castillo Ambulante", "", "Hayao Miyazaki", 2004, 119, 4, "Fantasía"),
             Pelicula(5, "El Padrino", "", "Francis Ford Coppola", 1972, 175, 5, "Drama"),
