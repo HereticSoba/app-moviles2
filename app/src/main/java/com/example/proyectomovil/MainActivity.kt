@@ -36,18 +36,19 @@ class MainActivity : AppCompatActivity() {
         rvPeliculas.layoutManager = LinearLayoutManager(this)
 
         val peliculas = listOf(
-            Pelicula(1, "El Viaje de Chihiro", "https://picsum.photos/seed/peli1/200/300", "Hayao Miyazaki", 2001, 125, 5, "Animación"),
-            Pelicula(2, "Mi Vecino Totoro", "https://picsum.photos/seed/peli2/200/300", "Hayao Miyazaki", 1988, 86, 5, "Animación"),
-            Pelicula(3, "La Princesa Mononoke", "https://picsum.photos/seed/peli3/200/300", "Hayao Miyazaki", 1997, 134, 5, "Aventura"),
-            Pelicula(4, "El Castillo Ambulante", "https://picsum.photos/seed/peli4/200/300", "Hayao Miyazaki", 2004, 119, 4, "Fantasía"),
-            Pelicula(5, "El Padrino", "https://picsum.photos/seed/peli5/200/300", "Francis Ford Coppola", 1972, 175, 5, "Drama"),
-            Pelicula(6, "Inception", "https://picsum.photos/seed/peli6/200/300", "Christopher Nolan", 2010, 148, 5, "Ciencia Ficción"),
-            Pelicula(7, "Interestelar", "https://picsum.photos/seed/peli7/200/300", "Christopher Nolan", 2014, 169, 5, "Ciencia Ficción"),
-            Pelicula(8, "Parásitos", "https://picsum.photos/seed/peli8/200/300", "Bong Joon-ho", 2019, 132, 5, "Thriller")
+            Pelicula(1, "El Viaje de Chihiro", "https://www.imdb.com/es/title/tt0245429/", "Hayao Miyazaki", 2001, 125, 5, "Animación"),
+            Pelicula(2, "Mi Vecino Totoro", "https://www.sensacine.com/peliculas/pelicula-14790/", "Hayao Miyazaki", 1988, 86, 5, "Animación"),
+            Pelicula(3, "La Princesa Mononoke", "", "Hayao Miyazaki", 1997, 134, 5, "Aventura"),
+            Pelicula(4, "El Castillo Ambulante", "", "Hayao Miyazaki", 2004, 119, 4, "Fantasía"),
+            Pelicula(5, "El Padrino", "", "Francis Ford Coppola", 1972, 175, 5, "Drama"),
+            Pelicula(6, "Inception", "", "Christopher Nolan", 2010, 148, 5, "Ciencia Ficción"),
+            Pelicula(7, "Interestelar", "", "Christopher Nolan", 2014, 169, 5, "Ciencia Ficción"),
+            Pelicula(8, "Parásitos", "", "Bong Joon-ho", 2019, 132, 5, "Thriller")
         )
 
         peliculaAdapter = PeliculaAdapter(this, peliculas) { pelicula ->
             val intent = Intent(this, PeliculaDetalleActivity::class.java)
+            intent.putExtra("image",pelicula.image)
             intent.putExtra("titulo", pelicula.title)
             intent.putExtra("director", pelicula.director)
             intent.putExtra("anio", pelicula.anioEstreno)

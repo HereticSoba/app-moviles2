@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#F5F5F5"
     tools:context=".MainActivity">
 
     <TextView
@@ -14,17 +15,18 @@
         android:layout_height="wrap_content"
         android:text="Películas recomendadas"
         android:textAlignment="center"
-        android:layout_margin="16dp"
-        android:textSize="25sp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="@color/ghibli_blue"/>
+        android:textColor="#2E86AB"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPeliculas"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginHorizontal="16dp"
+        android:paddingBottom="8dp"
         android:layout_marginBottom="16dp"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

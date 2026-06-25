@@ -1,14 +1,17 @@
 package com.example.proyectomovil
 
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
 
 class PeliculaDetalleActivity : AppCompatActivity() {
 
+    private lateinit var ivDetalle: ImageView      // NUEVO
     private lateinit var tvTitulo: TextView
     private lateinit var tvDirector: TextView
     private lateinit var tvAnio: TextView
@@ -21,6 +24,7 @@ class PeliculaDetalleActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_pelicula_detalle)
 
+        ivDetalle = findViewById(R.id.ivDetalle)          // NUEVO
         tvTitulo = findViewById(R.id.tvDetalleTitulo)
         tvDirector = findViewById(R.id.tvDetalleDirector)
         tvAnio = findViewById(R.id.tvDetalleAnio)
@@ -29,11 +33,15 @@ class PeliculaDetalleActivity : AppCompatActivity() {
         tvCategoria = findViewById(R.id.tvDetalleCategoria)
 
         if (intent.extras != null) {
+            // NUEVO: carga la imagen con Glide
+            val imagenUrl = intent.getStringExtra("imagen")
+            Glide.with(this).load(imagenUrl).into(ivDetalle)
+
             tvTitulo.text = intent.getStringExtra("titulo")
             tvDirector.text = intent.getStringExtra("director")
             tvAnio.text = intent.getIntExtra("anio", 0).toString()
             tvDuracion.text = "${intent.getIntExtra("duracion", 0)} min"
-            tvCalificacion.text = "${intent.getIntExtra("calificacion", 0)}/5"
+            tvCalificacion.text = "⭐ ${intent.getIntExtra("calificacion", 0)}/5"
             tvCategoria.text = intent.getStringExtra("categoria")
         }
 

@@ -1,71 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="15dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="6dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="#FFFFFF">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="16dp">
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            
-            <ImageView
-                android:id="@+id/ivimagen"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_play"
-                android:scaleType="fitCenter"/>
-        </FrameLayout>
+        android:padding="12dp">
 
+        <!-- POSTER de la película -->
+        <ImageView
+            android:id="@+id/ivimagen"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_play"
+            app:cardCornerRadius="8dp"/>
+
+        <!-- INFO de la película -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_weight="3"
-            android:layout_marginStart="16dp">
+            android:layout_marginStart="12dp">
 
+            <!-- Título -->
             <TextView
                 android:id="@+id/tvTitulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Titulo"/>
+                android:text="Título"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#2E86AB"
+                android:layout_marginBottom="4dp"/>
 
+            <!-- Director -->
             <TextView
                 android:id="@+id/tvdirector"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Director"/>
-            <TextView
-                android:id="@+id/tvestreno"
+                android:text="Director"
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Año y Duración en una fila -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fecha estreno"/>
-            <TextView
-                android:id="@+id/tvduracion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Duración"/>
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:id="@+id/tvestreno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2001"
+                    android:textSize="12sp"
+                    android:textColor="#888888"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  •  "
+                    android:textSize="12sp"
+                    android:textColor="#888888"/>
+
+                <TextView
+                    android:id="@+id/tvduracion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="125 min"
+                    android:textSize="12sp"
+                    android:textColor="#888888"/>
+
+            </LinearLayout>
+
+            <!-- Calificación con estrella -->
             <TextView
                 android:id="@+id/tvcalificacion"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calificación"/>
+                android:text="5/5"
+                android:textSize="12sp"
+                android:textColor="#F4A22D"
+                android:layout_marginBottom="8dp"/>
+
             <TextView
-                android:id="@+id/tvcategoria"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Categoría"/>
+            android:id="@+id/tvcategoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Animación"
+            android:textSize="12sp"
+            android:textColor="#888888"
+            android:textStyle="italic"/>
 
         </LinearLayout>
-
-
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
