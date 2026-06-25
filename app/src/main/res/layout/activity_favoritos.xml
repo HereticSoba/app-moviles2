@@ -16,22 +16,25 @@
         android:text="Mis Favoritos"
         android:layout_gravity="center"/>
 
-    <ListView
-        android:id="@+id/lvfavoritos"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvfavoritos"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </LinearLayout>
+        android:layout_weight="1"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        tools:listitem="@layout/item_pelicula"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnvolverfavoritos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Volver"
         android:layout_marginStart="70dp"
-        android:layout_marginEnd="70dp"/>
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#637289"/>
 </LinearLayout>
 
 
