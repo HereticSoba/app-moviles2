@@ -11,6 +11,11 @@
         android:title="Favoritos" />
 
     <item
+        android:id="@+id/nav_historial"
+        android:icon="@drawable/ic_historial"
+        android:title="Historial" />
+
+    <item
         android:id="@+id/nav_perfil"
         android:icon="@drawable/ic_profile"
         android:title="Perfil" />
