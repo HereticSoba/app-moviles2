@@ -4,8 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.proyectomovil.R
@@ -35,6 +38,18 @@ class PeliculaAdapter(
         holder.itemView.setOnClickListener {
             onItemClick(pelicula)
         }
+
+        holder.itemView.setOnLongClickListener {
+            val dialogview = LayoutInflater.from(context).inflate(R.layout.dialog_opciones,null)
+            val dialog = AlertDialog.Builder(context).setView(dialogview).create()
+            val btncancelar = dialogview.findViewById<Button>(R.id.btncancelar)
+            btncancelar.setOnClickListener {
+                dialog.dismiss()
+            }
+            dialog.show()
+            true
+        }
+
     }
 
     override fun getItemCount(): Int = lista.size
