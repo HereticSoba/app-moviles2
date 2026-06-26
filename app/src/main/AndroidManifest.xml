@@ -17,6 +17,10 @@
         <activity
             android:name=".ui.vistos.VistosActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".ui.reseñas.ResenasActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true">
