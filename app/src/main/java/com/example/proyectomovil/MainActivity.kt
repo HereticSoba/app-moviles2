@@ -36,14 +36,14 @@ class MainActivity : AppCompatActivity() {
         rvPeliculas.layoutManager = LinearLayoutManager(this)
 
         val peliculas = listOf(
-            Pelicula(1, "El Viaje de Chihiro", "https://picsum.photos/seed/hist1/200/300", "Hayao Miyazaki", 2001, 125, 5, "Animación"),
+            Pelicula(1, "El Viaje de Chihiro", "https://m.media-amazon.com/images/M/MV5BM2E2YzcwMTQtNWRlMC00ZGZlLWJhZTEtMDU4ZGIzMWI0NzJmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg", "Hayao Miyazaki", 2001, 125, 5, "Animación"),
             Pelicula(2, "Mi Vecino Totoro", "https://static.wikia.nocookie.net/studioghibli/images/a/ac/Mi-vecino-totoro_portada_ESP.jpg/revision/latest?cb=20200411042641&path-prefix=es", "Hayao Miyazaki", 1988, 86, 5, "Animación"),
-            Pelicula(3, "La Princesa Mononoke", "", "Hayao Miyazaki", 1997, 134, 5, "Aventura"),
-            Pelicula(4, "El Castillo Ambulante", "", "Hayao Miyazaki", 2004, 119, 4, "Fantasía"),
-            Pelicula(5, "El Padrino", "", "Francis Ford Coppola", 1972, 175, 5, "Drama"),
-            Pelicula(6, "Inception", "", "Christopher Nolan", 2010, 148, 5, "Ciencia Ficción"),
-            Pelicula(7, "Interestelar", "", "Christopher Nolan", 2014, 169, 5, "Ciencia Ficción"),
-            Pelicula(8, "Parásitos", "", "Bong Joon-ho", 2019, 132, 5, "Thriller")
+            Pelicula(3, "La Princesa Mononoke", "https://m.media-amazon.com/images/M/MV5BYjc1YjI2OGUtNzgyOC00ZmFiLThkNzgtYTRkNDQ5ZGEwM2I1XkEyXkFqcGc@._V1_.jpg", "Hayao Miyazaki", 1997, 134, 5, "Aventura"),
+            Pelicula(4, "El Castillo Ambulante", "https://es.web.img3.acsta.net/img/90/ea/90ea2e07d6c5897672fbd39c73b4d14f.jpg", "Hayao Miyazaki", 2004, 119, 4, "Fantasía"),
+            Pelicula(5, "El Padrino", "https://m.media-amazon.com/images/M/MV5BZmNiNzM4MTctODI5YS00MzczLWE2MzktNzY4YmNjYjA5YmY1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg", "Francis Ford Coppola", 1972, 175, 5, "Drama"),
+            Pelicula(6, "Inception", "https://m.media-amazon.com/images/M/MV5BZjhkNjM0ZTMtNGM5MC00ZTQ3LTk3YmYtZTkzYzdiNWE0ZTA2XkEyXkFqcGc@._V1_.jpg", "Christopher Nolan", 2010, 148, 5, "Ciencia Ficción"),
+            Pelicula(7, "Interestelar", "https://m.media-amazon.com/images/M/MV5BYzdjMDAxZGItMjI2My00ODA1LTlkNzItOWFjMDU5ZDJlYWY3XkEyXkFqcGc@._V1_.jpg", "Christopher Nolan", 2014, 169, 5, "Ciencia Ficción"),
+            Pelicula(8, "Parásitos", "https://es.web.img3.acsta.net/c_310_420/pictures/19/09/17/17/13/3740579.jpg", "Bong Joon-ho", 2019, 132, 5, "Thriller")
         )
 
         peliculaAdapter = PeliculaAdapter(this, peliculas) { pelicula ->
