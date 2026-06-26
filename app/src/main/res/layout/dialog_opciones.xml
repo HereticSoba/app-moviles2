@@ -34,7 +34,7 @@
         android:layout_below="@+id/btnvisto"
         android:layout_marginTop="16dp"
         android:textSize="20dp"
-        android:text="Narcar como favorito"
+        android:text="Marcar como favorito"
         android:backgroundTint="#DC7907">
     </com.google.android.material.button.MaterialButton>
 
