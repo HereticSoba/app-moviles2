@@ -1,6 +1,7 @@
 package com.example.proyectomovil.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.proyectomovil.R
 import com.example.proyectomovil.entity.Pelicula
+import com.example.proyectomovil.ui.reseñas.ResenasActivity
 
 class PeliculaAdapter(
     private val context: Context,
@@ -43,8 +45,24 @@ class PeliculaAdapter(
             val dialogview = LayoutInflater.from(context).inflate(R.layout.dialog_opciones,null)
             val dialog = AlertDialog.Builder(context).setView(dialogview).create()
             val btncancelar = dialogview.findViewById<Button>(R.id.btncancelar)
+            val btnresena = dialogview.findViewById<Button>(R.id.btnreseña)
+            val btnfavorito = dialogview.findViewById<Button>(R.id.btnfavorito)
+            val btnvisto = dialogview.findViewById<Button>(R.id.btnvisto)
             btncancelar.setOnClickListener {
                 dialog.dismiss()
+            }
+            btnresena.setOnClickListener {
+                val intent = Intent(context, ResenasActivity::class.java)
+                context.startActivity(intent)
+                dialog.dismiss()
+            }
+            btnfavorito.setOnClickListener {
+                dialog.dismiss()
+                Toast.makeText(context,"${pelicula.title} añadida con exito",Toast.LENGTH_SHORT).show()
+            }
+            btnvisto.setOnClickListener {
+                dialog.dismiss()
+                Toast.makeText(context,"${pelicula.title} marcada como visto", Toast.LENGTH_SHORT).show()
             }
             dialog.show()
             true
