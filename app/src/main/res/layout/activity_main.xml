@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,24 +11,15 @@
     android:background="#F5F5F5"
     tools:context=".MainActivity">
 
-    <TextView
+
+    <FrameLayout
+        android:id="@+id/flmain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Películas recomendadas"
-        android:textAlignment="center"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="#2E86AB"/>
+        android:layout_weight="1">
+    </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvPeliculas"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingBottom="8dp"
-        android:layout_marginBottom="16dp"/>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
