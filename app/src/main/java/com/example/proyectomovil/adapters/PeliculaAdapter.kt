@@ -13,7 +13,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.proyectomovil.R
+import com.example.proyectomovil.entity.Favoritos_provisional
 import com.example.proyectomovil.entity.Pelicula
+import com.example.proyectomovil.repository.FavoritosRepository
 import com.example.proyectomovil.ui.reseñas.ResenasActivity
 
 class PeliculaAdapter(
@@ -57,6 +59,24 @@ class PeliculaAdapter(
                 dialog.dismiss()
             }
             btnfavorito.setOnClickListener {
+                val fechaagregada = java.text.SimpleDateFormat(
+                    "yyyy-MM-dd",
+                    java.util.Locale.getDefault()
+                ).format(java.util.Date())
+                val favoritoreposiroty = FavoritosRepository(context)
+                val idfavorito = favoritoreposiroty.insertar_favoritos_db(
+                    Favoritos_provisional(
+                        id = pelicula.id,
+                        anioEstreno = pelicula.anioEstreno,
+                        calificacion = pelicula.calificacion,
+                        categoria = pelicula.categoria,
+                        director = pelicula.director,
+                        duracionMinutos = pelicula.duracionMinutos,
+                        image = pelicula.image,
+                        title = pelicula.title,
+                        fecha_agregado = fechaagregada
+                    )
+                )
                 dialog.dismiss()
                 Toast.makeText(context,"${pelicula.title} añadida con exito",Toast.LENGTH_SHORT).show()
             }

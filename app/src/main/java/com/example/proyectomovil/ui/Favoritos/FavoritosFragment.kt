@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectomovil.R
 import com.example.proyectomovil.adapters.FavoritosAdapter
 import com.example.proyectomovil.entity.Pelicula
-
-
-
+import com.example.proyectomovil.repository.FavoritosRepository
 
 
 class FavoritosFragment : Fragment() {
@@ -29,11 +27,8 @@ class FavoritosFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val peliculas = listOf(
-            Pelicula(1, "El Viaje de Chihiro", "https://picsum.photos/seed/hist1/200/300", "Hayao Miyazaki", 2001, 125, 5, "Animación"),
-            Pelicula(3, "La Princesa Mononoke", "https://picsum.photos/seed/hist2/200/300", "Hayao Miyazaki", 1997, 134, 5, "Aventura"),
-            Pelicula(5, "El Padrino", "https://picsum.photos/seed/hist3/200/300", "Francis Ford Coppola", 1972, 175, 5, "Drama")
-        )
+        val repository = FavoritosRepository(requireContext())
+        val peliculas = repository.listar_favoritos()
         rvfavoritos = view.findViewById(R.id.rvfavoritos)
         rvfavoritos.layoutManager = LinearLayoutManager(requireContext())
         favoritosadapter = FavoritosAdapter(requireContext() , peliculas)

@@ -9,15 +9,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.proyectomovil.R
+import com.example.proyectomovil.entity.Favoritos_provisional
 import com.example.proyectomovil.entity.Pelicula
 import org.w3c.dom.Text
 
-class FavoritosAdapter(private val context : Context, private val lista : List<Pelicula>) : RecyclerView.Adapter<FavoritosAdapter.FavoritosViewholder>(){
+class FavoritosAdapter(private val context : Context, private val lista : List<Favoritos_provisional>) : RecyclerView.Adapter<FavoritosAdapter.FavoritosViewholder>(){
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): FavoritosViewholder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_pelicula,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_favorito,parent,false)
         return FavoritosViewholder(view)
     }
 
@@ -32,6 +33,7 @@ class FavoritosAdapter(private val context : Context, private val lista : List<P
         holder.tvduracion.text = pelicula.duracionMinutos.toString()
         holder.tvcalificacion.text = pelicula.calificacion.toString()
         holder.tvcategoria.text = pelicula.categoria
+        holder.tvfechaagregado.text = pelicula.fecha_agregado.toString()
     }
 
     override fun getItemCount(): Int {
@@ -45,6 +47,7 @@ class FavoritosAdapter(private val context : Context, private val lista : List<P
         val tvduracion : TextView = itemview.findViewById<TextView>(R.id.tvduracion)
         val tvcalificacion : TextView = itemview.findViewById<TextView>(R.id.tvcalificacion)
         val tvcategoria : TextView = itemview.findViewById<TextView>(R.id.tvcategoria)
+        val tvfechaagregado : TextView = itemview.findViewById<TextView>(R.id.tvfechamostrar)
     }
 
 
