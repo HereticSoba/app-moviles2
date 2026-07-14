@@ -43,14 +43,6 @@ class SQliteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         db.close()
         return resultado != -1L
     }
-    fun validarUsuario(correo: String, contrasena: String): Boolean {
-        val db = this.readableDatabase
-        val cursor = db.rawQuery("SELECT * FROM $TABLE_USUARIO WHERE $COLUMN_CORREO = ? AND $COLUMN_CONTRASENA = ?", arrayOf(correo, contrasena))
-        val existe = cursor.count>0
-        cursor.close()
-        db.close()
-        return existe
-    }
     fun existeCorreo(correo: String): Boolean{
         val db = this.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM $TABLE_USUARIO WHERE $COLUMN_CORREO = ?", arrayOf(correo))
