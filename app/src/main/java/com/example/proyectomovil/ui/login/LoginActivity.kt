@@ -45,8 +45,12 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val usuarioValido = sQliteHelper.validarUsuario(correo, contrasena)
-            if (usuarioValido) {
+            val usuario = sQliteHelper.obtenerUsuario(correo, contrasena)
+            if (usuario != null) {
+                val preferencias = getSharedPreferences("sesion", MODE_PRIVATE)
+                preferencias.edit()
+                    .putString("nombre", usuario.nombre)
+                    .apply()
                 Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()

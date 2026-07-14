@@ -6,10 +6,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.proyectomovil.adapters.PeliculaAdapter
-import com.example.proyectomovil.entity.Pelicula
 import com.example.proyectomovil.ui.Favoritos.FavoritosFragment
 import com.example.proyectomovil.ui.Historial.HistorialActivity
 import com.example.proyectomovil.ui.profile.ProfileActivity

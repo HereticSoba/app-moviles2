@@ -14,18 +14,20 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        val preferencias = getSharedPreferences("sesion", MODE_PRIVATE)
+        val nombre = preferencias.getString("nombre", "")
+        binding.tvSaludo.text = "Hola, $nombre!"
 
         binding.btnmenuProfile.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
-
         binding.btnCerrarSesion.setOnClickListener {
+            val preferencias = getSharedPreferences("sesion", MODE_PRIVATE)
+            preferencias.edit().clear().apply()
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }

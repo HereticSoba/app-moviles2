@@ -59,4 +59,20 @@ class SQliteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         db.close()
         return existe
     }
+    fun obtenerUsuario(correo: String, contrasena: String): Usuario? {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM $TABLE_USUARIO WHERE $COLUMN_CORREO = ? AND $COLUMN_CONTRASENA = ?", arrayOf(correo, contrasena))
+        var usuario: Usuario? = null
+        if (cursor.moveToFirst()) {
+            usuario = Usuario(
+                id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)),
+                nombre = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOMBRE)),
+                correo = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CORREO)),
+                contrasena = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CONTRASENA))
+            )
+        }
+        cursor.close()
+        db.close()
+        return usuario
+    }
 }
