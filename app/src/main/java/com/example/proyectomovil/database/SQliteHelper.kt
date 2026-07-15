@@ -116,4 +116,16 @@ class SQliteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         db.close()
         return lista
     }
+
+    fun insertarResena(idPelicula: Int, comentario: String, calificacion: Float): Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put("id_pelicula", idPelicula)
+            put("comentario", comentario)
+            put("calificacion", calificacion)
+        }
+        val resultado = db.insert("resena", null, values)
+        db.close()
+        return resultado != -1L
+    }
 }
