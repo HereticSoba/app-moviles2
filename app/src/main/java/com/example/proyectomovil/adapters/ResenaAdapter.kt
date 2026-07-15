@@ -14,28 +14,20 @@ class ResenaAdapter(
     ) : RecyclerView.Adapter<ResenaAdapter.ResenaViewHolder>() {
 
         class ResenaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-            val txtUsuario: TextView = itemView.findViewById(R.id.txtUsuario)
             val txtComentario: TextView = itemView.findViewById(R.id.txtComentario)
             val ratingBar: RatingBar = itemView.findViewById(R.id.ratingBar)
-
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResenaViewHolder {
-
             val vista = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_resena, parent, false)
-
             return ResenaViewHolder(vista)
         }
 
         override fun onBindViewHolder(holder: ResenaViewHolder, position: Int) {
-
             val resena = listaResenas[position]
-
-            holder.txtUsuario.text = resena.usuario
             holder.txtComentario.text = resena.comentario
-            holder.ratingBar.rating = resena.calificacion.toFloat()
+            holder.ratingBar.rating = resena.calificacion
         }
 
         override fun getItemCount(): Int {

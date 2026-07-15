@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.database.sqlite.SQLiteDatabase
 import android.content.ContentValues
 import com.example.proyectomovil.entity.Pelicula
+import com.example.proyectomovil.entity.Resena
 import com.example.proyectomovil.entity.Usuario
 
 class SQliteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -127,5 +128,24 @@ class SQliteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         val resultado = db.insert("resena", null, values)
         db.close()
         return resultado != -1L
+    }
+
+    fun listarResenas(idPelicula: Int): List<Resena> {
+        val db = this.readableDatabase
+        val lista = mutableListOf<Resena>()
+        val cursor = db.rawQuery("SELECT * FROM resena WHERE id_pelicula = ?", arrayOf(idPelicula.toString()))
+        while (cursor.moveToNext()) {
+            lista.add(
+                Resena(
+                    id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    idPelicula = cursor.getInt(cursor.getColumnIndexOrThrow("id_pelicula")),
+                    comentario = cursor.getString(cursor.getColumnIndexOrThrow("comentario")),
+                    calificacion = cursor.getFloat(cursor.getColumnIndexOrThrow("calificacion"))
+                )
+            )
+        }
+        cursor.close()
+        db.close()
+        return lista
     }
 }
