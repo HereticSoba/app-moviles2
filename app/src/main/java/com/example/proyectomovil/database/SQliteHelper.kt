@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteOpenHelper
 import android.database.sqlite.SQLiteDatabase
 import android.content.ContentValues
+import com.example.proyectomovil.entity.Pelicula
 import com.example.proyectomovil.entity.Usuario
 
 class SQliteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -87,5 +88,32 @@ class SQliteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         cursor.close()
         db.close()
         return usuario
+    }
+
+    fun obtenerPeliculas(query: String): List<Pelicula> {
+        val db = this.readableDatabase
+        val lista = mutableListOf<Pelicula>()
+        val cursor = if (query.isEmpty()) {
+            db.rawQuery("SELECT * FROM pelicula", null)
+        } else {
+            db.rawQuery("SELECT * FROM pelicula WHERE titulo LIKE ?", arrayOf("%$query%"))
+        }
+        while (cursor.moveToNext()) {
+            lista.add(
+                Pelicula(
+                    id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    title = cursor.getString(cursor.getColumnIndexOrThrow("titulo")),
+                    image = cursor.getString(cursor.getColumnIndexOrThrow("imagen")),
+                    director = cursor.getString(cursor.getColumnIndexOrThrow("director")),
+                    anioEstreno = 0,
+                    duracionMinutos = 0,
+                    calificacion = 0,
+                    categoria = cursor.getString(cursor.getColumnIndexOrThrow("categoria"))
+                )
+            )
+        }
+        cursor.close()
+        db.close()
+        return lista
     }
 }
