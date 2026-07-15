@@ -9,7 +9,7 @@ import com.example.proyectomovil.entity.Usuario
 class SQliteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_NAME = "ProyectoMovil.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
         const val TABLE_USUARIO = "usuario"
         const val COLUMN_ID = "id"
         const val COLUMN_NOMBRE = "nombre"
@@ -25,10 +25,31 @@ class SQliteHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
             $COLUMN_CONTRASENA TEXT NOT NULL
         )""".trimIndent()
         db.execSQL(createTable)
+
+        db.execSQL("""CREATE TABLE pelicula (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            titulo TEXT,
+            imagen TEXT,
+            director TEXT,
+            categoria TEXT
+        )""")
+
+        db.execSQL("""CREATE TABLE resena (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_pelicula INTEGER,
+            comentario TEXT,
+            calificacion REAL
+        )""")
+
+        db.execSQL("INSERT INTO pelicula (titulo,imagen,director,categoria) VALUES ('El Viaje de Chihiro','https://m.media-amazon.com/images/M/MV5BM2E2YzcwMTQtNWRlMC00ZGZlLWJhZTEtMDU4ZGIzMWI0NzJmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg','Hayao Miyazaki','Animación')")
+        db.execSQL("INSERT INTO pelicula (titulo,imagen,director,categoria) VALUES ('El Padrino','https://m.media-amazon.com/images/M/MV5BZmNiNzM4MTctODI5YS00MzczLWE2MzktNzY4YmNjYjA5YmY1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg','Francis Ford Coppola','Drama')")
+        db.execSQL("INSERT INTO pelicula (titulo,imagen,director,categoria) VALUES ('Inception','https://m.media-amazon.com/images/M/MV5BZjhkNjM0ZTMtNGM5MC00ZTQ3LTk3YmYtZTkzYzdiNWE0ZTA2XkEyXkFqcGc@._V1_.jpg','Christopher Nolan','Ciencia Ficción')")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $TABLE_USUARIO")
+        db.execSQL("DROP TABLE IF EXISTS pelicula")
+        db.execSQL("DROP TABLE IF EXISTS resena")
         onCreate(db)
     }
 
