@@ -16,7 +16,7 @@ import com.example.proyectomovil.R
 import com.example.proyectomovil.entity.Favoritos_provisional
 import com.example.proyectomovil.entity.Pelicula
 import com.example.proyectomovil.repository.FavoritosRepository
-import com.example.proyectomovil.ui.reseñas.ResenasActivity
+import com.example.proyectomovil.ui.resenas.ResenasActivity
 
 class PeliculaAdapter(
     private val context: Context,

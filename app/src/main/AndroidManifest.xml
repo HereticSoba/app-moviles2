@@ -19,7 +19,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".ui.reseñas.ResenasActivity"
+            android:name=".ui.resenas.ResenasActivity"
             android:exported="false" />
 
         <activity

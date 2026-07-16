@@ -1,4 +1,4 @@
-package com.example.proyectomovil.ui.reseñas
+package com.example.proyectomovil.ui.resenas
 
 import android.os.Bundle
 import android.widget.Toast
