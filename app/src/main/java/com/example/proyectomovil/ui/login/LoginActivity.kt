@@ -12,7 +12,7 @@ import com.example.proyectomovil.MainActivity
 import com.example.proyectomovil.R
 import com.example.proyectomovil.ui.registro.RegistroActivity
 import android.widget.Toast
-import com.example.proyectomovil.database.SQliteHelper
+import com.example.proyectomovil.Data.AppDatabaseHelper
 import com.google.android.material.textfield.TextInputEditText
 
 class LoginActivity : AppCompatActivity() {
@@ -20,13 +20,13 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var etClave: TextInputEditText
     private lateinit var btnLogin: Button
     private lateinit var tvRegistro: TextView
-    private lateinit var sQliteHelper: SQliteHelper
+    private lateinit var appDatabaseHelper: AppDatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
-        sQliteHelper = SQliteHelper(this)
+        appDatabaseHelper = AppDatabaseHelper(this)
         etCorreo = findViewById(R.id.tietCorreo)
         etClave = findViewById(R.id.tietClave)
         btnLogin = findViewById(R.id.btnLogin)
@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val usuario = sQliteHelper.obtenerUsuario(correo, contrasena)
+            val usuario = appDatabaseHelper.obtenerUsuario(correo, contrasena)
             if (usuario != null) {
                 val preferencias = getSharedPreferences("sesion", MODE_PRIVATE)
                 preferencias.edit()

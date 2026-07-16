@@ -12,7 +12,7 @@ import com.example.proyectomovil.ui.login.LoginActivity
 import android.widget.Button
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
-import com.example.proyectomovil.database.SQliteHelper
+import com.example.proyectomovil.Data.AppDatabaseHelper
 import com.example.proyectomovil.entity.Usuario
 
 class RegistroActivity : AppCompatActivity() {
@@ -22,14 +22,14 @@ class RegistroActivity : AppCompatActivity() {
     private lateinit var etContrasena: TextInputEditText
     private lateinit var etConfirmar: TextInputEditText
     private lateinit var btnRegistrarse: Button
-    private lateinit var sQliteHelper: SQliteHelper
+    private lateinit var appDatabaseHelper: AppDatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         setContentView(R.layout.activity_registro)
-        sQliteHelper = SQliteHelper(this)
+        appDatabaseHelper = AppDatabaseHelper(this)
         etNombre = findViewById(R.id.etNombre)
         etCorreo = findViewById(R.id.etCorreoRegistro)
         etContrasena = findViewById(R.id.etContrasenaRegistro)
@@ -61,12 +61,12 @@ class RegistroActivity : AppCompatActivity() {
                 Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            if (sQliteHelper.existeCorreo(correo)) {
+            if (appDatabaseHelper.existeCorreo(correo)) {
                 Toast.makeText(this, "El correo ya está registrado", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             val usuario = Usuario(nombre = nombre, correo = correo, contrasena = contrasena)
-            val registrado = sQliteHelper.insertarUsuario(usuario)
+            val registrado = appDatabaseHelper.insertarUsuario(usuario)
             if (registrado) {
                 Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, LoginActivity::class.java))
