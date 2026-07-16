@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectomovil.R
 import com.example.proyectomovil.adapters.ResenaAdapter
-import com.example.proyectomovil.database.SQliteHelper
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import android.widget.RatingBar
+import com.example.proyectomovil.Data.AppDatabaseHelper
 
 class ResenasActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +31,7 @@ class ResenasActivity : AppCompatActivity() {
         val ratingBarNueva = findViewById<RatingBar>(R.id.ratingBarNueva)
         val btnGuardarResena = findViewById<MaterialButton>(R.id.btnGuardarResena)
 
-        val helper = SQliteHelper(this)
+        val helper = AppDatabaseHelper(this)
         rvResenas.layoutManager = LinearLayoutManager(this)
 
         fun cargarResenas() {

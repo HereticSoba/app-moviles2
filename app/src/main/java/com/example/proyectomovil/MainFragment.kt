@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectomovil.adapters.PeliculaAdapter
-import com.example.proyectomovil.database.SQliteHelper
+import com.example.proyectomovil.Data.AppDatabaseHelper
 import com.google.android.material.textfield.TextInputEditText
 
 
@@ -20,7 +20,7 @@ class MainFragment : Fragment() {
     private lateinit var rvPeliculas: RecyclerView
     private lateinit var peliculaAdapter: PeliculaAdapter
     private lateinit var etBuscar: TextInputEditText
-    private lateinit var helper: SQliteHelper
+    private lateinit var helper: AppDatabaseHelper
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +30,7 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        helper = SQliteHelper(requireContext())
+        helper = AppDatabaseHelper(requireContext())
         etBuscar = view.findViewById(R.id.etBuscar)
         rvPeliculas = view.findViewById(R.id.rvPeliculas)
         rvPeliculas.layoutManager = LinearLayoutManager(requireContext())
