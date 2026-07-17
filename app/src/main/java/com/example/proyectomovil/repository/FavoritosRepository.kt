@@ -1,5 +1,6 @@
 package com.example.proyectomovil.repository
 
+import android.R
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -49,5 +50,14 @@ class FavoritosRepository(context: Context) {
         cursor.close()
         db.close()
         return lista
+    }
+
+    fun validar_insert(titulo : String) : Boolean{
+        val db = dbhelper.readableDatabase
+        val cursor: Cursor = db.rawQuery("Select titulo_pelicula from favoritos_provisional where titulo_pelicula = ?",arrayOf(titulo))
+        if(cursor.moveToFirst()){
+            return false
+        }
+        else{return true}
     }
 }

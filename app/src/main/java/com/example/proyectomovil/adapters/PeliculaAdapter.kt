@@ -72,6 +72,10 @@ class PeliculaAdapter(
                     java.util.Locale.getDefault()
                 ).format(java.util.Date())
                 val favoritoreposiroty = FavoritosRepository(context)
+                if(favoritoreposiroty.validar_insert(pelicula.title) == false){
+                    Toast.makeText(context,"Esta ${pelicula.title} ya esta en tu lista ",Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                }
                 val idfavorito = favoritoreposiroty.insertar_favoritos_db(
                     Favoritos_provisional(
                         id = pelicula.id,
@@ -88,15 +92,15 @@ class PeliculaAdapter(
                 dialog.dismiss()
                 Toast.makeText(context,"${pelicula.title} añadida con exito",Toast.LENGTH_SHORT).show()
             }
-            btnvisto.setOnClickListener {
-                val exito = dbHelper.insertarHistorial(idUsuario, pelicula.id, fechaagregada) // corrrecion pendiente
-                if(exito){
-                Toast.makeText(context,"${pelicula.title} marcada como visto", Toast.LENGTH_SHORT).show()}
-                else{
-                    Toast.makeText(context, "Error al guardar el historial", Toast.LENGTH_SHORT).show()
-                }
-                dialog.dismiss()
-            }
+//            btnvisto.setOnClickListener {
+//                val exito = dbHelper.insertarHistorial(idUsuario, pelicula.id, fechaagregada) // corrrecion pendiente
+//                if(exito){
+//                Toast.makeText(context,"${pelicula.title} marcada como visto", Toast.LENGTH_SHORT).show()}
+//                else{
+//                    Toast.makeText(context, "Error al guardar el historial", Toast.LENGTH_SHORT).show()
+//                }
+//                dialog.dismiss()
+//            }
             dialog.show()
             true
         }
