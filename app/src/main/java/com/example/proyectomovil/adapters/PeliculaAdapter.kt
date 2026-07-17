@@ -82,6 +82,10 @@ class PeliculaAdapter(
                     java.util.Locale.getDefault()
                 ).format(java.util.Date())
                 val favoritoreposiroty = FavoritosRepository(context)
+                if(favoritoreposiroty.validar_insert(pelicula.title)==false){
+                    dialog.dismiss()
+                    Toast.makeText(context,"${pelicula.title} ya esta añadida",Toast.LENGTH_SHORT).show()
+                }
                 val idfavorito = favoritoreposiroty.insertar_favoritos_db(
                     Favoritos_provisional(
                         id = pelicula.id,

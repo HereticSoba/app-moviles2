@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.proyectomovil.R
 import com.example.proyectomovil.entity.Favoritos_provisional
 import com.example.proyectomovil.entity.Pelicula
+import com.example.proyectomovil.repository.FavoritosRepository
+import com.google.android.material.button.MaterialButton
 import org.w3c.dom.Text
 
-class FavoritosAdapter(private val context : Context, private val lista : List<Favoritos_provisional>) : RecyclerView.Adapter<FavoritosAdapter.FavoritosViewholder>(){
+class FavoritosAdapter(private val context : Context, private val lista : MutableList<Favoritos_provisional>) : RecyclerView.Adapter<FavoritosAdapter.FavoritosViewholder>(){
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -34,6 +37,12 @@ class FavoritosAdapter(private val context : Context, private val lista : List<F
         holder.tvcalificacion.text = pelicula.calificacion.toString()
         holder.tvcategoria.text = pelicula.categoria
         holder.tvfechaagregado.text = pelicula.fecha_agregado.toString()
+        holder.btneliminar.setOnClickListener {
+            val repository = FavoritosRepository(context)
+            repository.eliminar_favorito(pelicula.id)
+            eliminar_cardview(position)
+            Toast.makeText(context,"${pelicula.title} Eliminada con exito",Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun getItemCount(): Int {
@@ -48,6 +57,12 @@ class FavoritosAdapter(private val context : Context, private val lista : List<F
         val tvcalificacion : TextView = itemview.findViewById<TextView>(R.id.tvcalificacion)
         val tvcategoria : TextView = itemview.findViewById<TextView>(R.id.tvcategoria)
         val tvfechaagregado : TextView = itemview.findViewById<TextView>(R.id.tvfechamostrar)
+        val btneliminar : MaterialButton = itemview.findViewById<MaterialButton>(R.id.btneliminar)
+    }
+
+    fun eliminar_cardview(posicion : Int){
+        lista.removeAt(posicion)
+        notifyItemRemoved(posicion)
     }
 
 

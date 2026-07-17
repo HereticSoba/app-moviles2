@@ -11,11 +11,13 @@ import com.example.proyectomovil.R
 import com.example.proyectomovil.adapters.FavoritosAdapter
 import com.example.proyectomovil.entity.Pelicula
 import com.example.proyectomovil.repository.FavoritosRepository
+import com.google.android.material.button.MaterialButton
 
 
 class FavoritosFragment : Fragment() {
     private lateinit var rvfavoritos : RecyclerView
     private lateinit var favoritosadapter : FavoritosAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

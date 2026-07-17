@@ -122,14 +122,30 @@
                 android:textColor="#F4A22D"
                 android:layout_marginBottom="8dp"/>
 
-            <TextView
-                android:id="@+id/tvcategoria"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Animación"
-                android:textSize="12sp"
-                android:textColor="#888888"
-                android:textStyle="italic"/>
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:id="@+id/tvcategoria"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Animación"
+                    android:textSize="12sp"
+                    android:textColor="#888888"
+                    android:textStyle="italic"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btneliminar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#E91E63"
+                    android:text="Eliminar"/>
+
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

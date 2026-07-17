@@ -30,7 +30,7 @@ class FavoritosRepository(context: Context) {
         return id
     }
 
-    fun listar_favoritos(idUsuario: Int) : List<Favoritos_provisional>{
+    fun listar_favoritos(idUsuario: Int) : MutableList<Favoritos_provisional>{
         val db = dbhelper.readableDatabase
         val lista = mutableListOf<Favoritos_provisional>()
         val cursor : Cursor= db.rawQuery("Select * from favoritos_provisional WHERE idUsuario = ?",
@@ -61,8 +61,17 @@ class FavoritosRepository(context: Context) {
         val db = dbhelper.readableDatabase
         val cursor: Cursor = db.rawQuery("Select titulo_pelicula from favoritos_provisional where titulo_pelicula = ?",arrayOf(titulo))
         if(cursor.moveToFirst()){
+            db.close()
             return false
         }
-        else{return true}
+        else{
+            db.close()
+            return true}
+    }
+
+    fun eliminar_favorito(id : Int){
+        val db = dbhelper.writableDatabase
+        val cursor : Cursor = db.rawQuery("Delete from favoritos_provisional where id=?",arrayOf(id.toString()))
+        db.close()
     }
 }
