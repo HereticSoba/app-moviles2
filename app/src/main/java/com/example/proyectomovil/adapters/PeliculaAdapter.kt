@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.proyectomovil.Data.AppDatabaseHelper
 import com.example.proyectomovil.R
 import com.example.proyectomovil.entity.Favoritos_provisional
 import com.example.proyectomovil.entity.Pelicula
@@ -23,6 +24,8 @@ class PeliculaAdapter(
     private val lista: List<Pelicula>,
     private val onItemClick: (Pelicula) -> Unit
 ) : RecyclerView.Adapter<PeliculaAdapter.PeliculaViewHolder>() {
+
+    private val dbHelper = AppDatabaseHelper(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeliculaViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_pelicula, parent, false)
@@ -55,9 +58,14 @@ class PeliculaAdapter(
             }
             btnresena.setOnClickListener {
                 val intent = Intent(context, ResenasActivity::class.java)
+                intent.putExtra("id_pelicula",pelicula.id) // para cargar nuestras reseñas
                 context.startActivity(intent)
                 dialog.dismiss()
             }
+
+            // fecha en la que se agrego
+            val fechaagregada = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(java.util.Date())
+
             btnfavorito.setOnClickListener {
                 val fechaagregada = java.text.SimpleDateFormat(
                     "yyyy-MM-dd",
@@ -81,8 +89,13 @@ class PeliculaAdapter(
                 Toast.makeText(context,"${pelicula.title} añadida con exito",Toast.LENGTH_SHORT).show()
             }
             btnvisto.setOnClickListener {
+                val exito = dbHelper.insertarHistorial(idUsuario, pelicula.id, fechaagregada) // corrrecion pendiente
+                if(exito){
+                Toast.makeText(context,"${pelicula.title} marcada como visto", Toast.LENGTH_SHORT).show()}
+                else{
+                    Toast.makeText(context, "Error al guardar el historial", Toast.LENGTH_SHORT).show()
+                }
                 dialog.dismiss()
-                Toast.makeText(context,"${pelicula.title} marcada como visto", Toast.LENGTH_SHORT).show()
             }
             dialog.show()
             true

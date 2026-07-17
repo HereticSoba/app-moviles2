@@ -183,4 +183,16 @@ class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "pelicula
         db.close()
         return lista
     }
+
+    fun insertarHistorial(idUsuario: Int, idPelicula: Int, fecha: String):Boolean{
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put("idUsuario", idUsuario)
+            put("idPelicula", idPelicula)
+            put("fecha_agregado", fecha)
+        }
+        val resultado = db.insert("historial", null, values)
+        db.close()
+        return resultado != -1L
+    }
 }
