@@ -28,6 +28,7 @@ class ResenaAdapter(
             val resena = listaResenas[position]
             holder.txtComentario.text = resena.comentario
             holder.ratingBar.rating = resena.calificacion
+            holder.ratingBar.setIsIndicator(true)
         }
 
         override fun getItemCount(): Int {

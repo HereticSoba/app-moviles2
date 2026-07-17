@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".MainFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical" >
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -17,20 +18,39 @@
             android:textAlignment="center">
         </TextView>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
+            android:gravity="center_vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etBuscar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Buscar película..."
-                android:inputType="text"/>
+                android:inputType="text"
+                android:imeOptions="actionSearch"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBuscar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Buscar"
+                style="@style/Widget.Material3.Button"
+                />
+        </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPeliculas"
             android:layout_width="match_parent"

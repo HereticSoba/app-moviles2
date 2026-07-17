@@ -39,10 +39,10 @@
 
     <RatingBar
         android:id="@+id/ratingBarNueva"
-        style="?android:attr/ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:isIndicator="false"
         android:numStars="5"
         android:stepSize="1"
         android:paddingBottom="8dp"/>
