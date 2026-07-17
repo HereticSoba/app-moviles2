@@ -20,6 +20,20 @@ class ResenasActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_resenas)
+
+        val idPelicula = intent.getIntExtra("id_pelicula", -1)
+        if(idPelicula == -1){
+            Toast.makeText(this,"Error: no se pudo cargar la pelicula", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+        val preferenciasSesion = getSharedPreferences("sesion", MODE_PRIVATE)
+        val idUsuario = preferenciasSesion.getInt("id_usuario", -1)
+
+        val tituloPelicula = intent.getStringExtra("titulo_pelicula") ?: ""
+        val tvTituloPeliculaResena = findViewById<android.widget.TextView>(R.id.tvTituloPeliculaResena)
+        tvTituloPeliculaResena.text = tituloPelicula
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -35,7 +49,7 @@ class ResenasActivity : AppCompatActivity() {
         rvResenas.layoutManager = LinearLayoutManager(this)
 
         fun cargarResenas() {
-            val resenas = helper.listarResenas(1)
+            val resenas = helper.listarResenas(idPelicula)
             rvResenas.adapter = ResenaAdapter(resenas)
         }
 
@@ -52,7 +66,7 @@ class ResenasActivity : AppCompatActivity() {
                 Toast.makeText(this, "Selecciona una calificación", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val guardado = helper.insertarResena(1, comentario, calificacion)
+            val guardado = helper.insertarResena(idPelicula, idUsuario, comentario, calificacion)
             if (guardado) {
                 Toast.makeText(this, "Reseña guardada", Toast.LENGTH_SHORT).show()
                 etComentario.text?.clear()

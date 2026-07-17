@@ -61,6 +61,7 @@ class MainFragment : Fragment() {
         peliculaAdapter = PeliculaAdapter(requireContext(), peliculas) { pelicula ->
             val intent = Intent(requireContext(), PeliculaDetalleActivity::class.java)
             intent.putExtra("image", pelicula.image)
+            intent.putExtra("id",pelicula.id)
             intent.putExtra("titulo", pelicula.title)
             intent.putExtra("director", pelicula.director)
             intent.putExtra("anio", pelicula.anioEstreno)

@@ -50,6 +50,7 @@ class LoginActivity : AppCompatActivity() {
                 val preferencias = getSharedPreferences("sesion", MODE_PRIVATE)
                 preferencias.edit()
                     .putString("nombre", usuario.nombre)
+                    .putInt("id_usuario", usuario.id)
                     .apply()
                 Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, MainActivity::class.java))

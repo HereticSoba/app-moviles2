@@ -27,8 +27,10 @@ class FavoritosFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val preferencias = requireContext().getSharedPreferences("sesion", android.content.Context.MODE_PRIVATE)
+        val idUsuario = preferencias.getInt("id_usuario", -1)
         val repository = FavoritosRepository(requireContext())
-        val peliculas = repository.listar_favoritos()
+        val peliculas = repository.listar_favoritos(idUsuario)
         rvfavoritos = view.findViewById(R.id.rvfavoritos)
         rvfavoritos.layoutManager = LinearLayoutManager(requireContext())
         favoritosadapter = FavoritosAdapter(requireContext() , peliculas)

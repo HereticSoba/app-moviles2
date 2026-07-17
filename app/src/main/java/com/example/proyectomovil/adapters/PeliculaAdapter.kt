@@ -59,6 +59,7 @@ class PeliculaAdapter(
             btnresena.setOnClickListener {
                 val intent = Intent(context, ResenasActivity::class.java)
                 intent.putExtra("id_pelicula",pelicula.id) // para cargar nuestras reseñas
+                intent.putExtra("titulo_pelicula",pelicula.title) // carga el titulo de la pelicula en la lista de reseña
                 context.startActivity(intent)
                 dialog.dismiss()
             }
@@ -67,18 +68,24 @@ class PeliculaAdapter(
             val fechaagregada = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault()).format(java.util.Date())
 
             btnfavorito.setOnClickListener {
+                val preferencias = context.getSharedPreferences("sesion", android.content.Context.MODE_PRIVATE)
+                val idUsuario = preferencias.getInt("id_usuario", -1)
+
+                if (idUsuario == -1) {
+                    Toast.makeText(context, "Debes iniciar sesión primero", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                    return@setOnClickListener
+                }
+
                 val fechaagregada = java.text.SimpleDateFormat(
                     "yyyy-MM-dd",
                     java.util.Locale.getDefault()
                 ).format(java.util.Date())
                 val favoritoreposiroty = FavoritosRepository(context)
-                if(favoritoreposiroty.validar_insert(pelicula.title) == false){
-                    Toast.makeText(context,"Esta ${pelicula.title} ya esta en tu lista ",Toast.LENGTH_SHORT).show()
-                    dialog.dismiss()
-                }
                 val idfavorito = favoritoreposiroty.insertar_favoritos_db(
                     Favoritos_provisional(
                         id = pelicula.id,
+                        idUsuario = idUsuario,
                         anioEstreno = pelicula.anioEstreno,
                         calificacion = pelicula.calificacion,
                         categoria = pelicula.categoria,
@@ -92,15 +99,24 @@ class PeliculaAdapter(
                 dialog.dismiss()
                 Toast.makeText(context,"${pelicula.title} añadida con exito",Toast.LENGTH_SHORT).show()
             }
-//            btnvisto.setOnClickListener {
-//                val exito = dbHelper.insertarHistorial(idUsuario, pelicula.id, fechaagregada) // corrrecion pendiente
-//                if(exito){
-//                Toast.makeText(context,"${pelicula.title} marcada como visto", Toast.LENGTH_SHORT).show()}
-//                else{
-//                    Toast.makeText(context, "Error al guardar el historial", Toast.LENGTH_SHORT).show()
-//                }
-//                dialog.dismiss()
-//            }
+            btnvisto.setOnClickListener {
+                val preferencias = context.getSharedPreferences("sesion", android.content.Context.MODE_PRIVATE)
+                val idUsuario = preferencias.getInt("id_usuario", -1)
+
+                if (idUsuario == -1) {
+                    Toast.makeText(context, "Debes iniciar sesión primero", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                    return@setOnClickListener
+                }
+
+                val exito = dbHelper.insertarHistorial(idUsuario, pelicula.id, fechaagregada) // corrrecion pendiente -- CORRECION HECHA
+                if(exito){
+                Toast.makeText(context,"${pelicula.title} marcada como visto", Toast.LENGTH_SHORT).show()}
+                else{
+                    Toast.makeText(context, "Error al guardar el historial", Toast.LENGTH_SHORT).show()
+                }
+                dialog.dismiss()
+            }
             dialog.show()
             true
         }

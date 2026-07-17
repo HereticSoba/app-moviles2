@@ -6,6 +6,7 @@ import android.content.Context
 import android.database.Cursor
 import com.example.proyectomovil.Data.AppDatabaseHelper
 import com.example.proyectomovil.entity.Favoritos_provisional
+import com.example.proyectomovil.entity.Usuario
 
 class FavoritosRepository(context: Context) {
 
@@ -14,6 +15,7 @@ class FavoritosRepository(context: Context) {
     fun insertar_favoritos_db(favoritos : Favoritos_provisional): Long{
         val db = dbhelper.writableDatabase
         val valores = ContentValues().apply {
+            put("idUsuario",favoritos.idUsuario)
             put("titulo_pelicula",favoritos.title)
             put("imagen",favoritos.image)
             put("director",favoritos.director)
@@ -28,14 +30,17 @@ class FavoritosRepository(context: Context) {
         return id
     }
 
-    fun listar_favoritos() : List<Favoritos_provisional>{
+    fun listar_favoritos(idUsuario: Int) : List<Favoritos_provisional>{
         val db = dbhelper.readableDatabase
         val lista = mutableListOf<Favoritos_provisional>()
-        val cursor : Cursor= db.rawQuery("Select * from favoritos_provisional",null)
+        val cursor : Cursor= db.rawQuery("Select * from favoritos_provisional WHERE idUsuario = ?",
+            arrayOf(idUsuario.toString())
+        )
         while (cursor.moveToNext()){
             lista.add(
                 Favoritos_provisional(
                     id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    idUsuario = cursor.getInt(cursor.getColumnIndexOrThrow("idUsuario")),
                     title = cursor.getString(cursor.getColumnIndexOrThrow("titulo_pelicula")),
                     anioEstreno = cursor.getInt(cursor.getColumnIndexOrThrow("estreno")),
                     calificacion = cursor.getInt(cursor.getColumnIndexOrThrow("calificacion")),

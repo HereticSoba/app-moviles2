@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
+import com.example.proyectomovil.Data.AppDatabaseHelper
 
 class PeliculaDetalleActivity : AppCompatActivity() {
 
@@ -41,7 +42,16 @@ class PeliculaDetalleActivity : AppCompatActivity() {
             tvDirector.text = intent.getStringExtra("director")
             tvAnio.text = intent.getIntExtra("anio", 0).toString()
             tvDuracion.text = "${intent.getIntExtra("duracion", 0)} min"
-            tvCalificacion.text = "⭐ ${intent.getIntExtra("calificacion", 0)}/5"
+
+            val idPelicula = intent.getIntExtra("id", -1)
+            val helper = AppDatabaseHelper(this)
+            val calificacionMaxima = helper.obtenerCalificacionesMaxima(idPelicula)
+            if(calificacionMaxima > 0){
+                tvCalificacion.text = "⭐ ${calificacionMaxima}/5"
+            }else{
+                tvCalificacion.text = "Sin reseñas todavía"
+            }
+
             tvCategoria.text = intent.getStringExtra("categoria")
         }
 

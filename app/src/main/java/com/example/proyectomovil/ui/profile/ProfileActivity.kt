@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.proyectomovil.MainActivity
 import com.example.proyectomovil.databinding.ActivityProfileBinding
 import com.example.proyectomovil.ui.login.LoginActivity
+import com.example.proyectomovil.Data.AppDatabaseHelper
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -19,6 +20,11 @@ class ProfileActivity : AppCompatActivity() {
         val preferencias = getSharedPreferences("sesion", MODE_PRIVATE)
         val nombre = preferencias.getString("nombre", "")
         binding.tvSaludo.text = "Hola, $nombre!"
+
+        val idUsuario = preferencias.getInt("id_usuario", -1)
+        val helper = AppDatabaseHelper(this)
+        binding.tvNumResenas.text = helper.contarResenasUsuario(idUsuario).toString()
+        binding.tvNumFavoritos.text = helper.contarFavoritosUsuario(idUsuario).toString()
 
         binding.btnmenuProfile.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
