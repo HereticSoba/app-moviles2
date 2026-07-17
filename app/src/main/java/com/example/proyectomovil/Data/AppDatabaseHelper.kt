@@ -8,7 +8,7 @@ import com.example.proyectomovil.entity.Usuario
 import com.example.proyectomovil.entity.Pelicula
 import com.example.proyectomovil.entity.Resena
 
-class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "peliculas.db",null,5) {
+class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "peliculas.db",null,6) {
     companion object {
         const val TABLE_USUARIO = "usuario"
         const val COLUMN_ID = "id"

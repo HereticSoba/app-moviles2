@@ -69,9 +69,9 @@ class FavoritosRepository(context: Context) {
             return true}
     }
 
-    fun eliminar_favorito(id : Int){
+    fun eliminar_favorito(id: Int) {
         val db = dbhelper.writableDatabase
-        val cursor : Cursor = db.rawQuery("Delete from favoritos_provisional where id=?",arrayOf(id.toString()))
+        db.execSQL("DELETE FROM favoritos_provisional WHERE id = ?", arrayOf(id.toString()))
         db.close()
     }
 }
