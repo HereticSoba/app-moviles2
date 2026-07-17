@@ -1,14 +1,13 @@
 package com.example.proyectomovil
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.proyectomovil.ui.Favoritos.FavoritosFragment
-import com.example.proyectomovil.ui.Historial.HistorialActivity
-import com.example.proyectomovil.ui.profile.ProfileActivity
+import com.example.proyectomovil.ui.Historial.HistorialFragment
+import com.example.proyectomovil.ui.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -47,12 +46,12 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_historial -> {
-                    startActivity(Intent(this, HistorialActivity::class.java))
-                    false
+                    supportFragmentManager.beginTransaction().replace(R.id.flmain, HistorialFragment()).commit()
+                    true
                 }
                 R.id.nav_perfil -> {
-                    startActivity(Intent(this, ProfileActivity::class.java))
-                    false
+                    supportFragmentManager.beginTransaction().replace(R.id.flmain, ProfileFragment()).commit()
+                    true
                 }
                 else -> false
             }
