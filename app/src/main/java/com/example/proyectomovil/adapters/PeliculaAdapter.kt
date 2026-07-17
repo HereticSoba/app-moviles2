@@ -86,22 +86,25 @@ class PeliculaAdapter(
                     dialog.dismiss()
                     Toast.makeText(context,"${pelicula.title} ya esta añadida",Toast.LENGTH_SHORT).show()
                 }
-                val idfavorito = favoritoreposiroty.insertar_favoritos_db(
-                    Favoritos_provisional(
-                        id = pelicula.id,
-                        idUsuario = idUsuario,
-                        anioEstreno = pelicula.anioEstreno,
-                        calificacion = pelicula.calificacion,
-                        categoria = pelicula.categoria,
-                        director = pelicula.director,
-                        duracionMinutos = pelicula.duracionMinutos,
-                        image = pelicula.image,
-                        title = pelicula.title,
-                        fecha_agregado = fechaagregada
+                else{
+                    val idfavorito = favoritoreposiroty.insertar_favoritos_db(
+                        Favoritos_provisional(
+                            id = pelicula.id,
+                            idUsuario = idUsuario,
+                            anioEstreno = pelicula.anioEstreno,
+                            calificacion = pelicula.calificacion,
+                            categoria = pelicula.categoria,
+                            director = pelicula.director,
+                            duracionMinutos = pelicula.duracionMinutos,
+                            image = pelicula.image,
+                            title = pelicula.title,
+                            fecha_agregado = fechaagregada
+                        )
                     )
-                )
-                dialog.dismiss()
-                Toast.makeText(context,"${pelicula.title} añadida con exito",Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                    Toast.makeText(context,"${pelicula.title} añadida con exito",Toast.LENGTH_SHORT).show()
+                }
+
             }
             btnvisto.setOnClickListener {
                 val preferencias = context.getSharedPreferences("sesion", android.content.Context.MODE_PRIVATE)
