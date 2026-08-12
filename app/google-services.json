@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "452851062043",
+    "firebase_url": "https://terecomiendo-5a9dd-default-rtdb.firebaseio.com",
+    "project_id": "terecomiendo-5a9dd",
+    "storage_bucket": "terecomiendo-5a9dd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452851062043:android:252cb281e1ff56e7146fbe",
+        "android_client_info": {
+          "package_name": "com.example.proyectomovil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQggttUlMVmUoZN8bZm3aeMD69mtWIWtg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
