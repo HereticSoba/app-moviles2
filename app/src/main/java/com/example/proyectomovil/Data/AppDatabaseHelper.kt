@@ -7,8 +7,9 @@ import android.content.ContentValues
 import com.example.proyectomovil.entity.Usuario
 import com.example.proyectomovil.entity.Pelicula
 import com.example.proyectomovil.entity.Resena
+import com.example.proyectomovil.entity.PeliculaVista
 
-class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "peliculas.db",null,6) {
+class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, "peliculas.db", null, 7) {
     companion object {
         const val TABLE_USUARIO = "usuario"
         const val COLUMN_ID = "id"
@@ -18,26 +19,9 @@ class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "pelicula
     }
 
     override fun onCreate(db: SQLiteDatabase) {
-        //pongan los nombres de las base de datos en minuscula para menos problemas - Han
         db.execSQL(
             """
-            create table favoritos_provisional(
-                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                idUsuario INTEGER,
-                titulo_pelicula TEXT,
-                imagen TEXT,
-                director TEXT,
-                estreno INTEGER,
-                duracion INTEGER,
-                calificacion INTEGER,
-                categoria TEXT,
-                fecha_agregado TEXT
-            )
-        """.trimIndent()
-        )
-        db.execSQL(
-            """
-            create table usuario(
+            CREATE TABLE usuario(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nombre TEXT NOT NULL,
             correo TEXT NOT NULL UNIQUE,
@@ -45,6 +29,7 @@ class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "pelicula
             )
         """.trimIndent()
         )
+
         db.execSQL(
             """
             CREATE TABLE pelicula(
@@ -52,7 +37,22 @@ class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "pelicula
             titulo TEXT,
             imagen TEXT,
             director TEXT,
-            categoria TEXT
+            categoria TEXT,
+            anioEstreno INTEGER,
+            duracion INTEGER,
+            calificacion INTEGER,
+            firebaseId TEXT
+            )
+        """.trimIndent()
+        )
+
+        db.execSQL(
+            """
+            CREATE TABLE favoritos(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            idUsuario INTEGER,
+            idPelicula INTEGER,
+            fecha_agregado TEXT
             )
         """.trimIndent()
         )
@@ -77,23 +77,21 @@ class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "pelicula
                 )
             """.trimIndent()
         )
-        db.execSQL("INSERT INTO pelicula (titulo,imagen,director,categoria) VALUES ('El Viaje de Chihiro','https://m.media-amazon.com/images/M/MV5BM2E2YzcwMTQtNWRlMC00ZGZlLWJhZTEtMDU4ZGIzMWI0NzJmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg','Hayao Miyazaki','Animación')")
-        db.execSQL("INSERT INTO pelicula (titulo,imagen,director,categoria) VALUES ('El Padrino','https://m.media-amazon.com/images/M/MV5BZmNiNzM4MTctODI5YS00MzczLWE2MzktNzY4YmNjYjA5YmY1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg','Francis Ford Coppola','Drama')")
-        db.execSQL("INSERT INTO pelicula (titulo,imagen,director,categoria) VALUES ('Inception','https://m.media-amazon.com/images/M/MV5BZjhkNjM0ZTMtNGM5MC00ZTQ3LTk3YmYtZTkzYzdiNWE0ZTA2XkEyXkFqcGc@._V1_.jpg','Christopher Nolan','Ciencia Ficción')")
+        db.execSQL("INSERT INTO pelicula (titulo,imagen,director,categoria,anioEstreno,duracion,calificacion,firebaseId) VALUES ('El Viaje de Chihiro','https://m.media-amazon.com/images/M/MV5BM2E2YzcwMTQtNWRlMC00ZGZlLWJhZTEtMDU4ZGIzMWI0NzJmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg','Hayao Miyazaki','Animación',2001,125,5,'')")
+        db.execSQL("INSERT INTO pelicula (titulo,imagen,director,categoria,anioEstreno,duracion,calificacion,firebaseId) VALUES ('El Padrino','https://m.media-amazon.com/images/M/MV5BZmNiNzM4MTctODI5YS00MzczLWE2MzktNzY4YmNjYjA5YmY1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg','Francis Ford Coppola','Drama',1972,175,5,'')")
+        db.execSQL("INSERT INTO pelicula (titulo,imagen,director,categoria,anioEstreno,duracion,calificacion,firebaseId) VALUES ('Inception','https://m.media-amazon.com/images/M/MV5BZjhkNjM0ZTMtNGM5MC00ZTQ3LTk3YmYtZTkzYzdiNWE0ZTA2XkEyXkFqcGc@._V1_.jpg','Christopher Nolan','Ciencia Ficción',2010,148,5,'')")
     }
 
-    override fun onUpgrade(
-        db: SQLiteDatabase,
-        versionvieja: Int,
-        versionnueva: Int
-    ) {
+    override fun onUpgrade(db: SQLiteDatabase, versionvieja: Int, versionnueva: Int) {
         db.execSQL("DROP TABLE IF EXISTS favoritos_provisional")
+        db.execSQL("DROP TABLE IF EXISTS favoritos")
         db.execSQL("DROP TABLE IF EXISTS usuario")
         db.execSQL("DROP TABLE IF EXISTS pelicula")
         db.execSQL("DROP TABLE IF EXISTS resena")
         db.execSQL("DROP TABLE IF EXISTS historial")
         onCreate(db)
     }
+
 
     fun insertarUsuario(usuario: Usuario): Boolean {
         val db = this.writableDatabase
@@ -109,8 +107,7 @@ class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "pelicula
 
     fun existeCorreo(correo: String): Boolean {
         val db = this.readableDatabase
-        val cursor =
-            db.rawQuery("SELECT * FROM $TABLE_USUARIO WHERE $COLUMN_CORREO = ?", arrayOf(correo))
+        val cursor = db.rawQuery("SELECT * FROM $TABLE_USUARIO WHERE $COLUMN_CORREO = ?", arrayOf(correo))
         val existe = cursor.count > 0
         cursor.close()
         db.close()
@@ -137,6 +134,7 @@ class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "pelicula
         return usuario
     }
 
+
     fun obtenerPeliculas(query: String): List<Pelicula> {
         val db = this.readableDatabase
         val lista = mutableListOf<Pelicula>()
@@ -152,9 +150,9 @@ class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "pelicula
                     title = cursor.getString(cursor.getColumnIndexOrThrow("titulo")),
                     image = cursor.getString(cursor.getColumnIndexOrThrow("imagen")),
                     director = cursor.getString(cursor.getColumnIndexOrThrow("director")),
-                    anioEstreno = 0,
-                    duracionMinutos = 0,
-                    calificacion = 0,
+                    anioEstreno = cursor.getInt(cursor.getColumnIndexOrThrow("anioEstreno")),
+                    duracionMinutos = cursor.getInt(cursor.getColumnIndexOrThrow("duracion")),
+                    calificacion = cursor.getInt(cursor.getColumnIndexOrThrow("calificacion")),
                     categoria = cursor.getString(cursor.getColumnIndexOrThrow("categoria"))
                 )
             )
@@ -163,6 +161,46 @@ class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "pelicula
         db.close()
         return lista
     }
+
+
+    fun obtenerOInsertarPelicula(
+        titulo: String,
+        imagen: String,
+        director: String,
+        categoria: String,
+        anioEstreno: Int,
+        duracionMinutos: Int,
+        calificacion: Int,
+        firebaseId: String
+    ): Int {
+        val db = this.writableDatabase
+
+        if (firebaseId.isNotEmpty()) {
+            val cursor = db.rawQuery("SELECT id FROM pelicula WHERE firebaseId = ?", arrayOf(firebaseId))
+            if (cursor.moveToFirst()) {
+                val idExistente = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
+                cursor.close()
+                db.close()
+                return idExistente
+            }
+            cursor.close()
+        }
+
+        val values = ContentValues().apply {
+            put("titulo", titulo)
+            put("imagen", imagen)
+            put("director", director)
+            put("categoria", categoria)
+            put("anioEstreno", anioEstreno)
+            put("duracion", duracionMinutos)
+            put("calificacion", calificacion)
+            put("firebaseId", firebaseId)
+        }
+        val idNuevo = db.insert("pelicula", null, values)
+        db.close()
+        return idNuevo.toInt()
+    }
+
 
     fun insertarResena(idPelicula: Int, idUsuario: Int, comentario: String, calificacion: Float): Boolean {
         val db = this.writableDatabase
@@ -205,7 +243,7 @@ class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "pelicula
             arrayOf(idPelicula.toString())
         )
         var maxCal = 0f
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             maxCal = cursor.getFloat(cursor.getColumnIndexOrThrow("maxCal"))
         }
         cursor.close()
@@ -213,14 +251,14 @@ class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "pelicula
         return maxCal
     }
 
-    fun contarResenasUsuario(idUsuario: Int): Int{
+    fun contarResenasUsuario(idUsuario: Int): Int {
         val db = this.readableDatabase
         val cursor = db.rawQuery(
             "SELECT COUNT(*) as total FROM resena WHERE idUsuario = ?",
             arrayOf(idUsuario.toString())
         )
         var total = 0
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             total = cursor.getInt(cursor.getColumnIndexOrThrow("total"))
         }
         cursor.close()
@@ -228,14 +266,15 @@ class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "pelicula
         return total
     }
 
-    fun contarFavoritosUsuario(idUsuario: Int):Int {
+
+    fun contarFavoritosUsuario(idUsuario: Int): Int {
         val db = this.readableDatabase
         val cursor = db.rawQuery(
-            "SELECT COUNT(*) as total FROM favoritos_provisional WHERE idUsuario = ?",
+            "SELECT COUNT(*) as total FROM favoritos WHERE idUsuario = ?",
             arrayOf(idUsuario.toString())
         )
         var total = 0
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             total = cursor.getInt(cursor.getColumnIndexOrThrow("total"))
         }
         cursor.close()
@@ -243,7 +282,8 @@ class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "pelicula
         return total
     }
 
-    fun insertarHistorial(idUsuario: Int, idPelicula: Int, fecha: String):Boolean{
+
+    fun insertarHistorial(idUsuario: Int, idPelicula: Int, fecha: String): Boolean {
         val db = this.writableDatabase
         val values = ContentValues().apply {
             put("idUsuario", idUsuario)
@@ -255,12 +295,25 @@ class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "pelicula
         return resultado != -1L
     }
 
-    fun obtenerHistorial(idUsuario: Int): List<Pelicula> {
+    fun existeEnHistorial(idUsuario: Int, idPelicula: Int): Boolean {
         val db = this.readableDatabase
-        val lista = mutableListOf<Pelicula>()
+        val cursor = db.rawQuery(
+            "SELECT id FROM historial WHERE idUsuario = ? AND idPelicula = ?",
+            arrayOf(idUsuario.toString(), idPelicula.toString())
+        )
+        val existe = cursor.moveToFirst()
+        cursor.close()
+        db.close()
+        return existe
+    }
+
+    fun obtenerHistorial(idUsuario: Int): List<PeliculaVista> {
+        val db = this.readableDatabase
+        val lista = mutableListOf<PeliculaVista>()
         val cursor = db.rawQuery(
             """
-                SELECT p.id, p.titulo, p.imagen, p.director, p.categoria
+                SELECT h.id AS historialId, p.id AS peliculaId, p.titulo, p.imagen, p.director,
+                       p.anioEstreno, p.duracion, p.calificacion, p.categoria, h.fecha_agregado
                 FROM historial h
                 INNER JOIN pelicula p ON h.idPelicula = p.id
                 WHERE h.idUsuario = ?
@@ -268,22 +321,31 @@ class AppDatabaseHelper(context : Context) : SQLiteOpenHelper(context, "pelicula
             """.trimIndent(),
             arrayOf(idUsuario.toString())
         )
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             lista.add(
-                Pelicula(
-                    id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                PeliculaVista(
+                    id = cursor.getInt(cursor.getColumnIndexOrThrow("historialId")),
+                    idUsuario = idUsuario,
+                    idPelicula = cursor.getInt(cursor.getColumnIndexOrThrow("peliculaId")),
                     title = cursor.getString(cursor.getColumnIndexOrThrow("titulo")),
                     image = cursor.getString(cursor.getColumnIndexOrThrow("imagen")),
                     director = cursor.getString(cursor.getColumnIndexOrThrow("director")),
-                    anioEstreno = 0,
-                    duracionMinutos = 0,
-                    calificacion = 0,
-                    categoria = cursor.getString(cursor.getColumnIndexOrThrow("categoria"))
+                    anioEstreno = cursor.getInt(cursor.getColumnIndexOrThrow("anioEstreno")),
+                    duracionMinutos = cursor.getInt(cursor.getColumnIndexOrThrow("duracion")),
+                    calificacion = cursor.getInt(cursor.getColumnIndexOrThrow("calificacion")),
+                    categoria = cursor.getString(cursor.getColumnIndexOrThrow("categoria")),
+                    fecha_agregado = cursor.getString(cursor.getColumnIndexOrThrow("fecha_agregado"))
                 )
             )
         }
         cursor.close()
         db.close()
         return lista
+    }
+
+    fun eliminarHistorial(idHistorial: Int) {
+        val db = this.writableDatabase
+        db.execSQL("DELETE FROM historial WHERE id = ?", arrayOf(idHistorial.toString()))
+        db.close()
     }
 }
