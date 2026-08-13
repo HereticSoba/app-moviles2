@@ -1,12 +1,10 @@
 package com.example.proyectomovil.repository
 
-import android.R
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import com.example.proyectomovil.Data.AppDatabaseHelper
 import com.example.proyectomovil.entity.Favoritos_provisional
-import com.example.proyectomovil.entity.Usuario
 
 class FavoritosRepository(context: Context) {
 
@@ -16,16 +14,10 @@ class FavoritosRepository(context: Context) {
         val db = dbhelper.writableDatabase
         val valores = ContentValues().apply {
             put("idUsuario",favoritos.idUsuario)
-            put("titulo_pelicula",favoritos.title)
-            put("imagen",favoritos.image)
-            put("director",favoritos.director)
-            put("estreno",favoritos.anioEstreno)
-            put("duracion",favoritos.duracionMinutos)
-            put("calificacion",favoritos.calificacion)
-            put("categoria",favoritos.categoria)
+            put("idPelicula",favoritos.idPelicula)
             put("fecha_agregado",favoritos.fecha_agregado)
         }
-        val id =db.insert("favoritos_provisional",null,valores)
+        val id =db.insert("favoritos",null,valores)
         db.close()
         return id
     }
@@ -33,22 +25,29 @@ class FavoritosRepository(context: Context) {
     fun listar_favoritos(idUsuario: Int) : MutableList<Favoritos_provisional>{
         val db = dbhelper.readableDatabase
         val lista = mutableListOf<Favoritos_provisional>()
-        val cursor : Cursor= db.rawQuery("Select * from favoritos_provisional WHERE idUsuario = ?",
+        val cursor : Cursor= db.rawQuery("""
+                SELECT f.id AS favoritoId, p.id AS peliculaId, p.titulo, p.imagen, p.director,
+                       p.anioEstreno, p.duracion, p.calificacion, p.categoria, f.fecha_agregado
+                FROM favoritos f
+                INNER JOIN pelicula p ON f.idPelicula = p.id
+                WHERE f.idUsuario = ?
+            """.trimIndent(),
             arrayOf(idUsuario.toString())
         )
         while (cursor.moveToNext()){
             lista.add(
                 Favoritos_provisional(
-                    id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
-                    idUsuario = cursor.getInt(cursor.getColumnIndexOrThrow("idUsuario")),
-                    title = cursor.getString(cursor.getColumnIndexOrThrow("titulo_pelicula")),
-                    anioEstreno = cursor.getInt(cursor.getColumnIndexOrThrow("estreno")),
+                    id = cursor.getInt(cursor.getColumnIndexOrThrow("favoritoId")),
+                    idUsuario = idUsuario,
+                    idPelicula = cursor.getInt(cursor.getColumnIndexOrThrow("peliculaId")),
+                    title = cursor.getString(cursor.getColumnIndexOrThrow("titulo")),
+                    image = cursor.getString(cursor.getColumnIndexOrThrow("imagen")),
+                    director = cursor.getString(cursor.getColumnIndexOrThrow("director")),
+                    anioEstreno = cursor.getInt(cursor.getColumnIndexOrThrow("anioEstreno")),
+                    duracionMinutos = cursor.getInt(cursor.getColumnIndexOrThrow("duracion")),
                     calificacion = cursor.getInt(cursor.getColumnIndexOrThrow("calificacion")),
                     categoria = cursor.getString(cursor.getColumnIndexOrThrow("categoria")),
-                    director = cursor.getString(cursor.getColumnIndexOrThrow("director")),
-                    duracionMinutos = cursor.getInt(cursor.getColumnIndexOrThrow("duracion")),
-                    fecha_agregado = cursor.getString(cursor.getColumnIndexOrThrow("fecha_agregado")),
-                    image = cursor.getString(cursor.getColumnIndexOrThrow("imagen"))
+                    fecha_agregado = cursor.getString(cursor.getColumnIndexOrThrow("fecha_agregado"))
                 )
             )
         }
@@ -57,21 +56,21 @@ class FavoritosRepository(context: Context) {
         return lista
     }
 
-    fun validar_insert(titulo : String) : Boolean{
+    fun validar_insert( idUsuario: Int, idPelicula: Int ) : Boolean{
         val db = dbhelper.readableDatabase
-        val cursor: Cursor = db.rawQuery("Select titulo_pelicula from favoritos_provisional where titulo_pelicula = ?",arrayOf(titulo))
-        if(cursor.moveToFirst()){
-            db.close()
-            return false
-        }
-        else{
-            db.close()
-            return true}
+        val cursor: Cursor = db.rawQuery(
+                "SELECT id FROM favoritos WHERE idUsuario = ? AND idPelicula = ?",
+            arrayOf(idUsuario.toString(), idPelicula.toString())
+        )
+        val existe = cursor.moveToFirst()
+        cursor.close()
+        db.close()
+        return !existe
     }
 
-    fun eliminar_favorito(id: Int) {
+    fun eliminar_favorito(idFavorito: Int) {
         val db = dbhelper.writableDatabase
-        db.execSQL("DELETE FROM favoritos_provisional WHERE id = ?", arrayOf(id.toString()))
+        db.execSQL("DELETE FROM favoritos WHERE id = ?", arrayOf(idFavorito.toString()))
         db.close()
     }
 }

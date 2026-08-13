@@ -83,7 +83,6 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, "peliculas
     }
 
     override fun onUpgrade(db: SQLiteDatabase, versionvieja: Int, versionnueva: Int) {
-        db.execSQL("DROP TABLE IF EXISTS favoritos_provisional")
         db.execSQL("DROP TABLE IF EXISTS favoritos")
         db.execSQL("DROP TABLE IF EXISTS usuario")
         db.execSQL("DROP TABLE IF EXISTS pelicula")

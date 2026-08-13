@@ -1,6 +1,6 @@
 package com.example.proyectomovil.entity
 
-data class Favoritos_provisional (
+data class PeliculaVista(
     val id: Int,
     val idUsuario: Int,
     val idPelicula: Int,
@@ -11,5 +11,5 @@ data class Favoritos_provisional (
     val duracionMinutos: Int,
     val calificacion: Int,
     val categoria: String,
-    val fecha_agregado : String
+    val fecha_agregado: String
 )
