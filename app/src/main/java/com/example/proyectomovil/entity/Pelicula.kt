@@ -8,5 +8,6 @@ data class Pelicula(
     val anioEstreno: Int,
     val duracionMinutos: Int,
     val calificacion: Int,
-    val categoria: String
+    val categoria: String,
+    val firebaseId: String = ""
 )
