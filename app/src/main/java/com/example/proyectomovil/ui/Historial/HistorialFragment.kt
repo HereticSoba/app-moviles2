@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectomovil.Data.AppDatabaseHelper
 import com.example.proyectomovil.R
 import com.example.proyectomovil.adapters.PeliculaAdapter
+import com.example.proyectomovil.adapters.HistorialAdapter
+import com.example.proyectomovil.repository.HistorialRepository
 
 class HistorialFragment : Fragment() {
 
     private lateinit var rvHistorial: RecyclerView
     private lateinit var historialAdapter: PeliculaAdapter
-    private lateinit var helper: AppDatabaseHelper
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,8 +30,6 @@ class HistorialFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        helper = AppDatabaseHelper(requireContext())
-
         rvHistorial = view.findViewById(R.id.rvHistorial)
         rvHistorial.layoutManager = LinearLayoutManager(requireContext())
 
@@ -41,11 +40,12 @@ class HistorialFragment : Fragment() {
 
         val idUsuario = preferencias.getInt("id_usuario", -1)
 
-        val peliculasVistas = helper.obtenerHistorial(idUsuario)
+        val repository = HistorialRepository(requireContext())
 
-        historialAdapter = PeliculaAdapter(requireContext(), peliculasVistas) { pelicula ->
-            // Acción al pulsar una película del historial
-        }
+        val peliculasVistas = repository.listar_historial(idUsuario)
+
+        historialAdapter = HistorialAdapter(requireContext(), peliculasVistas)
+
 
         rvHistorial.adapter = historialAdapter
     }

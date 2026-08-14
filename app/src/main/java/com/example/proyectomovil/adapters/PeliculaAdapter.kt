@@ -77,19 +77,15 @@ class PeliculaAdapter(
                     return@setOnClickListener
                 }
 
-                val fechaagregada = java.text.SimpleDateFormat(
-                    "yyyy-MM-dd",
-                    java.util.Locale.getDefault()
-                ).format(java.util.Date())
                 val favoritoreposiroty = FavoritosRepository(context)
-                if(favoritoreposiroty.validar_insert(pelicula.title)==false){
+                if(favoritoreposiroty.validar_insert(idUsuario, pelicula.id)==false){
                     dialog.dismiss()
                     Toast.makeText(context,"${pelicula.title} ya esta añadida",Toast.LENGTH_SHORT).show()
                 }
                 else{
-                    val idfavorito = favoritoreposiroty.insertar_favoritos_db(
+                    favoritoreposiroty.insertar_favoritos_db(
                         Favoritos_provisional(
-                            id = pelicula.id,
+                            id = 0,
                             idUsuario = idUsuario,
                             anioEstreno = pelicula.anioEstreno,
                             calificacion = pelicula.calificacion,
@@ -112,6 +108,11 @@ class PeliculaAdapter(
 
                 if (idUsuario == -1) {
                     Toast.makeText(context, "Debes iniciar sesión primero", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                    return@setOnClickListener
+                }
+                if (dbHelper.existeEnHistorial(idUsuario, pelicula.id)) {
+                    Toast.makeText(context, "${pelicula.title} ya estaba marcada como vista", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
                     return@setOnClickListener
                 }

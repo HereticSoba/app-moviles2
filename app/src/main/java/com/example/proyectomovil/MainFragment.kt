@@ -14,6 +14,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.example.proyectomovil.repository.CatalogoRepository
 import com.example.proyectomovil.entity.Pelicula
+import com.example.proyectomovil.Data.AppDatabaseHelper
 
 class MainFragment : Fragment() {
 
@@ -84,6 +85,8 @@ class MainFragment : Fragment() {
 
     private fun cargarPeliculas(query: String) {
 
+        val dbHelper = AppDatabaseHelper(requireContext())
+
         CatalogoRepository.obtenerPeliculasFirebase { peliculasFirebase ->
 
             val peliculas =
@@ -97,20 +100,31 @@ class MainFragment : Fragment() {
                     }
                     .map { peliculaFirebase ->
 
+                        val anio = peliculaFirebase.releaseDate.toIntOrNull() ?: 0
+                        val duracion = peliculaFirebase.runningTime.toIntOrNull() ?: 0
+                        val calificacion = (peliculaFirebase.rtScore.toIntOrNull() ?: 0) / 20
+
+                        // clave del arreglo: se busca/inserta en la tabla pelicula
+                        // y se obtiene un id REAL (nunca 0)
+                        val idReal = dbHelper.obtenerOInsertarPelicula(
+                            titulo = peliculaFirebase.title,
+                            imagen = peliculaFirebase.image,
+                            director = peliculaFirebase.director,
+                            categoria = "Animación",
+                            anioEstreno = anio,
+                            duracionMinutos = duracion,
+                            calificacion = calificacion,
+                            firebaseId = peliculaFirebase.id
+                        )
+
                         Pelicula(
-                            id = 0,
+                            id = idReal,
                             title = peliculaFirebase.title,
                             image = peliculaFirebase.image,
                             director = peliculaFirebase.director,
-                            anioEstreno =
-                                peliculaFirebase.releaseDate
-                                    .toIntOrNull() ?: 0,
-                            duracionMinutos =
-                                peliculaFirebase.runningTime
-                                    .toIntOrNull() ?: 0,
-                            calificacion =
-                                (peliculaFirebase.rtScore
-                                    .toIntOrNull() ?: 0) / 20,
+                            anioEstreno = anio,
+                            duracionMinutos = duracion,
+                            calificacion = calificacion,
                             categoria = "Animación",
                             firebaseId = peliculaFirebase.id
                         )
