@@ -38,13 +38,15 @@
         android:textSize="26sp"
         android:textStyle="bold"
         android:textColor="#1a365d"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/questrial_regular"/>
 
     <TextView
         android:id="@+id/tvSubtitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Bienvenido a tu perfil de TeRecomiendo"
+        android:fontFamily="@font/questrial_regular"
         android:textAlignment="center"
         android:textSize="14sp"
         android:textColor="#718096"
@@ -102,6 +104,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Favoritos"
+                android:textSize="12sp"
+                android:textColor="#718096"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:background="#cbd5e0"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginHorizontal="24dp">
+            <TextView
+                android:id="@+id/tvNumVistos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#2b6cb0"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vistos"
                 android:textSize="12sp"
                 android:textColor="#718096"/>
         </LinearLayout>

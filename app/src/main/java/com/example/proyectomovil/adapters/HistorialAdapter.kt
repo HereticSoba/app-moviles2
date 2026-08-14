@@ -38,7 +38,7 @@ class HistorialAdapter(
             val repository = HistorialRepository(context)
             repository.eliminar_historial(pelicula.id)
             eliminar_cardview(position)
-            Toast.makeText(context, "${pelicula.title} eliminada del historial", Toast.LENGTH_SHORT)
+            Toast.makeText(context, "${pelicula.title} Borrado del Historial", Toast.LENGTH_SHORT)
                 .show()
         }
     }

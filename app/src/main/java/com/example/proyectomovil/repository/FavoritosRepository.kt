@@ -10,6 +10,9 @@ class FavoritosRepository(context: Context) {
 
     private val dbhelper= AppDatabaseHelper(context)
 
+
+
+
     fun insertar_favoritos_db(favoritos : Favoritos_provisional): Long{
         val db = dbhelper.writableDatabase
         val valores = ContentValues().apply {

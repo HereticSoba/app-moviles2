@@ -281,6 +281,21 @@ class AppDatabaseHelper(context: Context) : SQLiteOpenHelper(context, "peliculas
         return total
     }
 
+    fun contarVistosUsuario(idUsuario: Int): Int {
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(
+            "SELECT COUNT(*) as total FROM historial WHERE idUsuario = ?",
+            arrayOf(idUsuario.toString())
+        )
+        var total = 0
+        if (cursor.moveToFirst()) {
+            total = cursor.getInt(cursor.getColumnIndexOrThrow("total"))
+        }
+        cursor.close()
+        db.close()
+        return total
+    }
+
 
     fun insertarHistorial(idUsuario: Int, idPelicula: Int, fecha: String): Boolean {
         val db = this.writableDatabase

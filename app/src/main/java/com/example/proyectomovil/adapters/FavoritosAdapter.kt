@@ -16,7 +16,9 @@ import com.example.proyectomovil.repository.FavoritosRepository
 import com.google.android.material.button.MaterialButton
 import org.w3c.dom.Text
 
-class FavoritosAdapter(private val context : Context, private val lista : MutableList<Favoritos_provisional>) : RecyclerView.Adapter<FavoritosAdapter.FavoritosViewholder>(){
+class FavoritosAdapter(
+    private val context : Context,
+    private val lista : MutableList<Favoritos_provisional>) : RecyclerView.Adapter<FavoritosAdapter.FavoritosViewholder>(){
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -34,6 +36,7 @@ class FavoritosAdapter(private val context : Context, private val lista : Mutabl
         holder.tvtitulo.text = pelicula.title
         holder.tvestreno.text = pelicula.anioEstreno.toString()
         holder.tvduracion.text = pelicula.duracionMinutos.toString()
+        holder.tvdirector.text = pelicula.director
         holder.tvcalificacion.text = pelicula.calificacion.toString()
         holder.tvcategoria.text = pelicula.categoria
         holder.tvfechaagregado.text = pelicula.fecha_agregado.toString()
@@ -41,7 +44,7 @@ class FavoritosAdapter(private val context : Context, private val lista : Mutabl
             val repository = FavoritosRepository(context)
             repository.eliminar_favorito(pelicula.id)
             eliminar_cardview(position)
-            Toast.makeText(context,"${pelicula.title} Eliminada con exito",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"${pelicula.title} Borrado de Favoritos",Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -54,6 +57,7 @@ class FavoritosAdapter(private val context : Context, private val lista : Mutabl
         val tvtitulo : TextView = itemview.findViewById<TextView>(R.id.tvTitulo)
         val tvestreno : TextView = itemview.findViewById<TextView>(R.id.tvestreno)
         val tvduracion : TextView = itemview.findViewById<TextView>(R.id.tvduracion)
+        val tvdirector: TextView = itemview.findViewById<TextView>(R.id.tvdirector)
         val tvcalificacion : TextView = itemview.findViewById<TextView>(R.id.tvcalificacion)
         val tvcategoria : TextView = itemview.findViewById<TextView>(R.id.tvcategoria)
         val tvfechaagregado : TextView = itemview.findViewById<TextView>(R.id.tvfechamostrar)

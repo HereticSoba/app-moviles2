@@ -18,8 +18,10 @@ class ProfileFragment : Fragment() {
     private lateinit var tvSaludo: TextView
     private lateinit var tvNumResenas: TextView
     private lateinit var tvNumFavoritos: TextView
+    private lateinit var tvNumVistos: TextView
     private lateinit var btnCerrarSesion: Button
     private lateinit var btnMenuProfile: Button
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +37,7 @@ class ProfileFragment : Fragment() {
         tvSaludo = view.findViewById(R.id.tvSaludo)
         tvNumResenas = view.findViewById(R.id.tvNumResenas)
         tvNumFavoritos = view.findViewById(R.id.tvNumFavoritos)
+        tvNumVistos = view.findViewById(R.id.tvNumVistos)
         btnCerrarSesion = view.findViewById(R.id.btnCerrarSesion)
         btnMenuProfile = view.findViewById(R.id.btnmenu_profile)
 
@@ -51,6 +54,7 @@ class ProfileFragment : Fragment() {
         val helper = AppDatabaseHelper(requireContext())
         tvNumResenas.text = helper.contarResenasUsuario(idUsuario).toString()
         tvNumFavoritos.text = helper.contarFavoritosUsuario(idUsuario).toString()
+        tvNumVistos.text = helper.contarVistosUsuario(idUsuario).toString()
 
         btnMenuProfile.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
