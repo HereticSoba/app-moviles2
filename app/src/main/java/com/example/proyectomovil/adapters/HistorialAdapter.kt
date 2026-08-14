@@ -53,7 +53,7 @@ class HistorialAdapter(
         val tvduracion: TextView = itemView.findViewById(R.id.tvduracion)
         val tvcalificacion: TextView = itemView.findViewById(R.id.tvcalificacion)
         val tvcategoria: TextView = itemView.findViewById(R.id.tvcategoria)
-        val tvfechaagregado: TextView = itemView.findViewById(R.id.tvfechaagregadatitulo)
+        val tvfechaagregado: TextView = itemView.findViewById(R.id.tvfechamostrar)
         val btneliminar: MaterialButton = itemView.findViewById(R.id.btneliminar)
     }
 
