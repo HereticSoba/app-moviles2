@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.example.proyectomovil.Data.AppDatabaseHelper
+import android.widget.ImageButton
 
 class PeliculaDetalleActivity : AppCompatActivity() {
 
@@ -50,6 +51,10 @@ class PeliculaDetalleActivity : AppCompatActivity() {
                 tvCalificacion.text = "⭐ ${calificacionMaxima}/5"
             }else{
                 tvCalificacion.text = "Sin reseñas todavía"
+            }
+            val btnRegresar = findViewById<ImageButton>(R.id.btnRegresar)
+            btnRegresar.setOnClickListener {
+                finish()
             }
 
             tvCategoria.text = intent.getStringExtra("categoria")
