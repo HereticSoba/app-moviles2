@@ -50,8 +50,6 @@ class MainFragment : Fragment() {
         rvPeliculas.layoutManager =
             LinearLayoutManager(requireContext())
 
-        CatalogoRepository.cargarPeliculasAFirebase()
-
         cargarPeliculas("")
 
         btnBuscar.setOnClickListener {

@@ -14,13 +14,18 @@ import com.example.proyectomovil.ui.registro.RegistroActivity
 import android.widget.Toast
 import com.example.proyectomovil.Data.AppDatabaseHelper
 import com.google.android.material.textfield.TextInputEditText
+import com.airbnb.lottie.LottieAnimationView
+import com.example.proyectomovil.LoadingActivity
+
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var etCorreo: TextInputEditText
     private lateinit var etClave: TextInputEditText
     private lateinit var btnLogin: Button
     private lateinit var tvRegistro: TextView
+    private lateinit var lottieLoading: LottieAnimationView
     private lateinit var appDatabaseHelper: AppDatabaseHelper
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
         etClave = findViewById(R.id.tietClave)
         btnLogin = findViewById(R.id.btnLogin)
         tvRegistro = findViewById(R.id.tvRegistro)
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -53,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
                     .putInt("id_usuario", usuario.id)
                     .apply()
                 Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, LoadingActivity::class.java))
                 finish()
             } else {
                 Toast.makeText(this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show()
