@@ -39,7 +39,7 @@
         android:textStyle="bold"
         android:textColor="#1a365d"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/questrial_regular"/>
+        android:fontFamily="@font/sekuya_regular"/>
 
     <TextView
         android:id="@+id/tvSubtitulo"
@@ -48,7 +48,7 @@
         android:text="Bienvenido a tu perfil de TeRecomiendo"
         android:fontFamily="@font/questrial_regular"
         android:textAlignment="center"
-        android:textSize="14sp"
+        android:textSize="19sp"
         android:textColor="#718096"
         android:layout_marginBottom="24dp"/>
 
@@ -78,7 +78,8 @@
                 android:layout_height="wrap_content"
                 android:text="Reseñas"
                 android:textSize="12sp"
-                android:textColor="#718096"/>
+                android:textColor="#718096"
+                />
         </LinearLayout>
 
         <View
@@ -132,7 +133,8 @@
                 android:layout_height="wrap_content"
                 android:text="Vistos"
                 android:textSize="12sp"
-                android:textColor="#718096"/>
+                android:textColor="#718096"
+                android:fontFamily="@font/questrial_regular"/>
         </LinearLayout>
 
     </LinearLayout>
