@@ -35,7 +35,7 @@ class PeliculaDetalleActivity : AppCompatActivity() {
 
         if (intent.extras != null) {
             // NUEVO: carga la imagen con Glide
-            val imagenUrl = intent.getStringExtra("imagen")
+            val imagenUrl = intent.getStringExtra("image")
             Glide.with(this).load(imagenUrl).into(ivDetalle)
 
             tvTitulo.text = intent.getStringExtra("titulo")
