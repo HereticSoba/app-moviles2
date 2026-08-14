@@ -87,6 +87,7 @@ class PeliculaAdapter(
                         Favoritos_provisional(
                             id = 0,
                             idUsuario = idUsuario,
+                            idPelicula = pelicula.id,
                             anioEstreno = pelicula.anioEstreno,
                             calificacion = pelicula.calificacion,
                             categoria = pelicula.categoria,

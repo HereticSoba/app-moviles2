@@ -17,7 +17,7 @@ import com.example.proyectomovil.repository.HistorialRepository
 class HistorialFragment : Fragment() {
 
     private lateinit var rvHistorial: RecyclerView
-    private lateinit var historialAdapter: PeliculaAdapter
+    private lateinit var historialAdapter: HistorialAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
